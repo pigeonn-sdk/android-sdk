@@ -2,6 +2,7 @@ package io.pigeonn.pigeonnsdk.libs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -37,7 +38,12 @@ public abstract class BaseActivity extends AppCompatActivity {
           if(message.toLowerCase().contains("attempt to invoke virtual method")){
               return;
           }
-          new AlertDialog.Builder(this).setMessage(message).setTitle("Alert").setPositiveButton("Ok",(dialog, which) -> dialog.dismiss()).show();
+          new AlertDialog.Builder(this).setMessage(message).setTitle("Alert").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                  dialog.dismiss();
+              }
+          }).show();
       }catch (WindowManager.BadTokenException e){
 
       }
@@ -66,11 +72,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void ondisconnected() {
         if (mAlertDialog == null || !mAlertDialog.isShowing())
             mAlertDialog = new AlertDialog.Builder(this)
-                    .setMessage("No Internet Connection Available.").setTitle("Alert").setPositiveButton("Settings", (dialog, which) -> {
-                        Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-                        startActivity(intent);
-                    }).setNegativeButton("Close", (dialog, which) -> {
-                        dialog.dismiss();
+                    .setMessage("No Internet Connection Available.").setTitle("Alert").setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+                            startActivity(intent);
+                        }
+                    }).setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
                     }).show();
     }
 

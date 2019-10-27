@@ -2,6 +2,7 @@
 package io.pigeonn.pigeonnsdk.libs;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -75,7 +76,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showMessage(String m){
-        new AlertDialog.Builder(getContext()).setMessage(m).setTitle("Alert").setPositiveButton("Ok",(dialog, which) -> dialog.dismiss()).show();
+        new AlertDialog.Builder(getContext()).setMessage(m).setTitle("Alert").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 
     public static float size(int dp) {
