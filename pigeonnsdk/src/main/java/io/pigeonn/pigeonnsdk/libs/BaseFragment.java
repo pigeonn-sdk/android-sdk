@@ -1,10 +1,7 @@
 
 package io.pigeonn.pigeonnsdk.libs;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -17,8 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.fragment.app.Fragment;
 
-import io.eka.ekav2.R;
-import io.eka.ekav2.Singletons.FirebaseInstance.Firebase;
+import io.pigeonn.pigeonnsdk.R;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -35,16 +31,8 @@ public abstract class BaseFragment extends Fragment {
             View inflatedView = mViewStub.inflate();
             oncreateview(inflatedView);
         }
-        Firebase.INSTANCE.addScreenViewEvent(this.getClass().getName());
         return view;
     }
-
-    public boolean isLocationPermission(Context c){
-        String permission = Manifest.permission.ACCESS_FINE_LOCATION;
-        int res = c.checkCallingOrSelfPermission(permission);
-        return (res == PackageManager.PERMISSION_GRANTED);
-    }
-
 
     protected void setTypeface(View v, int id, Typeface typeface){
         TextView view = v.findViewById(id);

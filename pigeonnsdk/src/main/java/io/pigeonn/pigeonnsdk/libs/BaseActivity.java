@@ -1,6 +1,5 @@
 package io.pigeonn.pigeonnsdk.libs;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
